@@ -9,7 +9,7 @@ pygame.display.set_caption("Fruit Basket")
 
 BG = pygame.image.load("assets/fruitBasketBackground.png")
 if BG:
-    print("Background loaded successfully")
+    print("Background loaded successfully") # Debug message
 
 PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
