@@ -8,27 +8,27 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Basket")
 
 
-PLAYER_WIDTH = 120
-PLAYER_HEIGHT = 120
+BASKET_WIDTH = 120
+BASKET_HEIGHT = 120
 
-PLAYER_VEL = 5
+BASKET_VEL = 5
 
 BG = pygame.image.load("assets/pixelated_background.png")
-basket = pygame.image.load("assets/basket.png")
-basket = pygame.transform.scale(basket, (PLAYER_WIDTH, PLAYER_HEIGHT))
+basket_img = pygame.image.load("assets/basket.png")
+basket_img = pygame.transform.scale(basket_img, (BASKET_WIDTH, BASKET_HEIGHT))
 
 
 # if BG:
     # print("Background loaded successfully") # Debug message
 
 
-def draw(player):
+def draw(basket_img, basket_rect):
     # Draw the background image
     WIN.blit(BG, (0, 0))
 
-    # Draw the player
-    # pygame.draw.rect(WIN, (215, 139, 98), player)
-    WIN.blit(basket, (player.x, player.y))
+    # Draw the basket
+    # pygame.draw.rect(WIN, (215, 139, 98), basket)
+    WIN.blit(basket_img, (basket_rect.x, basket_rect.y))
 
     # Update the display
     pygame.display.update()
@@ -37,7 +37,7 @@ def draw(player):
 def main():
     run = True
 
-    player = pygame.Rect(200, HEIGHT - PLAYER_HEIGHT*2, PLAYER_WIDTH, PLAYER_HEIGHT)
+    basket_rect = pygame.Rect(200, HEIGHT - BASKET_HEIGHT*2, BASKET_WIDTH, BASKET_HEIGHT)
     clock = pygame.time.Clock()
 
     while run:
@@ -49,12 +49,12 @@ def main():
                 break
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
-            player.x -= PLAYER_VEL
-        if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.width <= WIDTH:
-            player.x += PLAYER_VEL
+        if keys[pygame.K_LEFT] and basket_rect.x - BASKET_VEL >= 0:
+            basket_rect.x -= BASKET_VEL
+        if keys[pygame.K_RIGHT] and basket_rect.x + BASKET_VEL + basket_rect.width <= WIDTH:
+            basket_rect.x += BASKET_VEL
 
-        draw(player)
+        draw(basket_img, basket_rect)
 
     pygame.quit()
 
