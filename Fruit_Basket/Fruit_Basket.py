@@ -4,22 +4,25 @@ import time
 
 # Initialize Pygame
 WIDTH, HEIGHT = 800, 640
-win = pygame.display.set_mode((WIDTH, HEIGHT))
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Basket")
-
-BG = pygame.image.load("assets/fruitBasketBackground.png")
-if BG:
-    print("Background loaded successfully") # Debug message
 
 PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
 
+PLAYER_VEL = 1
+
+BG = pygame.image.load("assets/pixelated_background.png")
+
+if BG:
+    print("Background loaded successfully") # Debug message
+
 def draw(player):
     # Draw the background image
-    win.blit(BG, (0, 0))
+    WIN.blit(BG, (0, 0))
 
     # Draw the player
-    pygame.draw.rect(win, (215, 139, 98), player)
+    pygame.draw.rect(WIN, (215, 139, 98), player)
 
     # Update the display
     pygame.display.update()
@@ -34,6 +37,13 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 break
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            player.x -= PLAYER_VEL
+        if keys[pygame.K_RIGHT]:
+            player.x += PLAYER_VEL
+
         draw(player)
 
     pygame.quit()
