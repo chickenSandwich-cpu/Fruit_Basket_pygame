@@ -8,4 +8,5 @@ stay tune!
 - Im watching this video https://www.youtube.com/watch?v=waY3LfJhQLY
 - May 6th, 15:39
 - May 7th, 22:57
+- May 8th,
 - Updating ...
