@@ -27,6 +27,7 @@ FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
 BG = pygame.image.load("assets/background.png")
 basket_img = pygame.image.load("assets/basket.png")
 basket_img = pygame.transform.scale(basket_img, (BASKET_WIDTH, BASKET_HEIGHT))
+basket_flipped = pygame.transform.flip(basket_img, True, False)
 
 
 # if BG:
@@ -51,8 +52,11 @@ def draw(basket_img, basket_rect, elapsed_time):
 # Game loop
 def main():
     run = True
+    flipped = False
 
     basket_rect = pygame.Rect(200, HEIGHT - 180, BASKET_WIDTH, BASKET_HEIGHT)
+    loading_basket_img = basket_img
+
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
@@ -70,10 +74,17 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and basket_rect.x - BASKET_VEL >= 0:
             basket_rect.x -= BASKET_VEL
+            if flipped:
+                loading_basket_img = basket_img
+                flipped = False
+
         if keys[pygame.K_RIGHT] and basket_rect.x + BASKET_VEL + basket_rect.width <= WIDTH:
             basket_rect.x += BASKET_VEL
+            if not flipped:
+                loading_basket_img = basket_flipped
+                flipped = True
 
-        draw(basket_img, basket_rect, elapsed_time)
+        draw(loading_basket_img, basket_rect, elapsed_time)
 
     pygame.quit()
 
