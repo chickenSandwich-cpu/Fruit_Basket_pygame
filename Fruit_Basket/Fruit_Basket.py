@@ -16,12 +16,12 @@ icon = pygame.image.load("assets/tomato.png")
 pygame.display.set_icon(icon)
 
 # Basket properties
-BASKET_WIDTH = 80
-BASKET_HEIGHT = 80
+BASKET_WIDTH = 120
+BASKET_HEIGHT = 120
 
 BASKET_VEL = 5
 
-FONT = pygame.font.SysFont("comicsans", 30)
+FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
 
 # Load images
 BG = pygame.image.load("assets/background.png")
@@ -52,7 +52,7 @@ def draw(basket_img, basket_rect, elapsed_time):
 def main():
     run = True
 
-    basket_rect = pygame.Rect(200, HEIGHT - BASKET_HEIGHT*2, BASKET_WIDTH, BASKET_HEIGHT)
+    basket_rect = pygame.Rect(200, HEIGHT - 180, BASKET_WIDTH, BASKET_HEIGHT)
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
