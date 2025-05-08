@@ -3,17 +3,23 @@ import random
 import time
 
 # Initialize Pygame
+pygame.init()
+
+# Set up the display
 WIDTH, HEIGHT = 800, 640
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Basket")
 
+# Set up game icon
+icon = pygame.image.load("assets/tomato.png")
+pygame.display.set_icon(icon)
 
-BASKET_WIDTH = 120
-BASKET_HEIGHT = 120
+BASKET_WIDTH = 80
+BASKET_HEIGHT = 80
 
 BASKET_VEL = 5
 
-BG = pygame.image.load("assets/pixelated_background.png")
+BG = pygame.image.load("assets/background.png")
 basket_img = pygame.image.load("assets/basket.png")
 basket_img = pygame.transform.scale(basket_img, (BASKET_WIDTH, BASKET_HEIGHT))
 
@@ -34,6 +40,7 @@ def draw(basket_img, basket_rect):
     pygame.display.update()
 
 
+# Game loop
 def main():
     run = True
 
