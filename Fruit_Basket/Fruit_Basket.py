@@ -18,9 +18,9 @@ pygame.display.set_icon(icon)
 # Basket properties
 BASKET_WIDTH = 120
 BASKET_HEIGHT = 120
-
 BASKET_VEL = 5
 
+# Set up font
 FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
 
 # Load images
@@ -58,13 +58,16 @@ def main():
     run = True
     flipped = False
 
+    # Load the basket image
     basket_rect = pygame.Rect(200, HEIGHT - 180, BASKET_WIDTH, BASKET_HEIGHT)
     loading_basket_img = basket_img
 
+    # Timer
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
 
+    # Points
     points = 0
 
 
