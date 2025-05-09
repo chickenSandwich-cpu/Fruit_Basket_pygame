@@ -34,13 +34,17 @@ basket_flipped = pygame.transform.flip(basket_img, True, False)
     # print("Background loaded successfully") # Debug message
 
 
-def draw(basket_img, basket_rect, elapsed_time):
+def draw(basket_img, basket_rect, elapsed_time, points):
     # Draw the background image
     WIN.blit(BG, (0, 0))
 
     # Draw the timer
     time_text = FONT.render(f"Time: {round(elapsed_time, 1)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
+
+    # Draw the points
+    points_text = FONT.render(f"Points: {points}", 1, "white")
+    WIN.blit(points_text, (WIDTH - points_text.get_width() - 10, 10))
 
     # Draw the basket
     WIN.blit(basket_img, (basket_rect.x, basket_rect.y))
@@ -60,6 +64,8 @@ def main():
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
+
+    points = 0
 
 
     while run:
@@ -84,7 +90,7 @@ def main():
                 loading_basket_img = basket_flipped
                 flipped = True
 
-        draw(loading_basket_img, basket_rect, elapsed_time)
+        draw(loading_basket_img, basket_rect, elapsed_time, points)
 
     pygame.quit()
 
