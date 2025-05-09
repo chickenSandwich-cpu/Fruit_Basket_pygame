@@ -86,6 +86,7 @@ def main():
 
         if keys[pygame.K_RIGHT] and basket_rect.x + BASKET_VEL + basket_rect.width <= WIDTH:
             basket_rect.x += BASKET_VEL
+            # points += 1
             if not flipped:
                 loading_basket_img = basket_flipped
                 flipped = True
