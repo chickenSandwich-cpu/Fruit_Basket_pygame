@@ -16,9 +16,12 @@ icon = pygame.image.load("assets/tomato.png")
 pygame.display.set_icon(icon)
 
 # Basket properties
-BASKET_WIDTH = 120
-BASKET_HEIGHT = 120
+BASKET_WIDTH, BASKET_HEIGHT = 120, 120
 BASKET_VEL = 5
+
+# Fruit properties
+FRUIT_WIDTH, FRUIT_HEIGHT = 32, 32
+FRUIT_VEL = 5
 
 # Set up font
 FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
@@ -29,12 +32,19 @@ basket_img = pygame.image.load("assets/basket.png")
 basket_img = pygame.transform.scale(basket_img, (BASKET_WIDTH, BASKET_HEIGHT))
 basket_flipped = pygame.transform.flip(basket_img, True, False)
 
+# Load fruit images
+fruit_images = [
+    pygame.image.load("assets/tomato.png"),
+    pygame.image.load("assets/carrot.png"),
+    pygame.image.load("assets/green_apple.png")
+    ]
+
 
 # if BG:
     # print("Background loaded successfully") # Debug message
 
 
-def draw(basket_img, basket_rect, elapsed_time, points):
+def draw(basket_img, basket_rect, elapsed_time, points, fruits):
     # Draw the background image
     WIN.blit(BG, (0, 0))
 
@@ -45,6 +55,10 @@ def draw(basket_img, basket_rect, elapsed_time, points):
     # Draw the points
     points_text = FONT.render(f"Points: {points}", 1, "white")
     WIN.blit(points_text, (WIDTH - points_text.get_width() - 10, 10))
+
+    # Draw the fruits
+    for fruit in fruits:
+        WIN.blit(fruit["image"], (fruit["rect"].x, fruit["rect"].y))
 
     # Draw the basket
     WIN.blit(basket_img, (basket_rect.x, basket_rect.y))
@@ -70,10 +84,28 @@ def main():
     # Points
     points = 0
 
+    fruit_add_increment = 2000
+    fruit_count = 0
+    
+    fruits = []
 
     while run:
-        clock.tick(60)  # Set the frame rate to 60 FPS
+        fruit_count += clock.tick(60)  # Set the frame rate to 60 FPS
         elapsed_time = time.time() - start_time
+
+        # Spawn fruits
+        if fruit_count >= fruit_add_increment:
+            for _ in range(1):
+                fruit_x = random.randint(0, WIDTH - FRUIT_WIDTH)
+                fruit_type = random.choice(fruit_images)
+                fruit = {
+                    "rect": pygame.Rect(fruit_x, -FRUIT_HEIGHT, FRUIT_WIDTH, FRUIT_HEIGHT),
+                    "image": fruit_type
+                    }
+                fruits.append(fruit)
+
+            fruit_add_increment = max(750, fruit_add_increment - 50)
+            fruit_count = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -89,12 +121,21 @@ def main():
 
         if keys[pygame.K_RIGHT] and basket_rect.x + BASKET_VEL + basket_rect.width <= WIDTH:
             basket_rect.x += BASKET_VEL
-            # points += 1
             if not flipped:
                 loading_basket_img = basket_flipped
                 flipped = True
 
-        draw(loading_basket_img, basket_rect, elapsed_time, points)
+        for fruit in fruits[:]:
+            fruit["rect"].y += FRUIT_VEL  # Move downward
+
+            if fruit["rect"].y > HEIGHT:
+                fruits.remove(fruit)  # Remove fruit if it goes off screen
+            elif fruit["rect"].colliderect(basket_rect):
+                points += 1
+                fruits.remove(fruit)
+
+
+        draw(loading_basket_img, basket_rect, elapsed_time, points, fruits)
 
     pygame.quit()
 
