@@ -17,7 +17,7 @@ pygame.display.set_icon(icon)
 
 # Basket properties
 BASKET_WIDTH, BASKET_HEIGHT = 120, 120
-BASKET_VEL = 5
+BASKET_VEL = 8
 
 # Fruit properties
 FRUIT_WIDTH, FRUIT_HEIGHT = 32, 32
@@ -84,7 +84,7 @@ def main():
     # Points
     points = 0
 
-    fruit_add_increment = 2000
+    fruit_add_increment = 1000
     fruit_count = 0
     
     fruits = []
@@ -95,16 +95,15 @@ def main():
 
         # Spawn fruits
         if fruit_count >= fruit_add_increment:
-            for _ in range(1):
-                fruit_x = random.randint(0, WIDTH - FRUIT_WIDTH)
-                fruit_type = random.choice(fruit_images)
-                fruit = {
-                    "rect": pygame.Rect(fruit_x, -FRUIT_HEIGHT, FRUIT_WIDTH, FRUIT_HEIGHT),
-                    "image": fruit_type
-                    }
-                fruits.append(fruit)
+            fruit_x = random.randint(0, WIDTH - FRUIT_WIDTH)
+            fruit_type = random.choice(fruit_images)
+            fruit = {
+                "rect": pygame.Rect(fruit_x, -FRUIT_HEIGHT, FRUIT_WIDTH, FRUIT_HEIGHT),
+                "image": fruit_type
+                }
+            fruits.append(fruit)
 
-            fruit_add_increment = max(750, fruit_add_increment - 50)
+            fruit_add_increment = max(300, fruit_add_increment - 50)
             fruit_count = 0
 
         for event in pygame.event.get():
