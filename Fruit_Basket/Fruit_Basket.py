@@ -103,7 +103,7 @@ def main():
                 }
             fruits.append(fruit)
 
-            fruit_add_increment = max(300, fruit_add_increment - 50)
+            fruit_add_increment = max(500, fruit_add_increment - 50)
             fruit_count = 0
 
         for event in pygame.event.get():
