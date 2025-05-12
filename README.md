@@ -4,23 +4,29 @@
 Welcome to Fruit Basket, where your speed, precision, and reflexes will be put to the test! Catch those falling fruits, rack up points, and don’t let them slip away!😱🍎🍌
 
 ## 🚀 How to Play
-1️⃣ Fruits fall from the sky—catch them with your basket!🍅🥕🍏
-2️⃣ Move left and right to position your basket!⬅️➡️
-3️⃣ Score points every time a fruit lands safely!✅
-4️⃣ As time progresses, fruits drop FASTER!!😱💨
-5️⃣ Stay sharp, maximize your score, and become the ULTIMATE fruit-catching champion!🏆🔥
+- Fruits fall from the sky—catch them with your basket!🍅🥕🍏
+- Move left and right to position your basket!⬅️➡️
+- Score points every time a fruit lands safely!✅
+- As time progresses, fruits drop FASTER!!😱💨
+- Stay sharp, maximize your score, and become the ULTIMATE fruit-catching champion!🏆🔥
 
 ## 🔧 Technologies Used
-🔹 Python🐍
-🔹 Pygame🎮
-🔹 Randomized Fruit Mechanics🍅🥕🍏
-🔹 Juicy Pixel Art Sprites🎨
-🔹 Chicken Sandwich-Fueled Thinking🥪🔥 (no sponsorship, just pure passion😆)
+- Python🐍
+- Pygame🎮
+- Randomized Fruit Mechanics🍅🥕🍏
+- Juicy Pixel Art Sprites🎨
+- Chicken Sandwich-Fueled Thinking🥪🔥 (no sponsorship, just pure passion😆)
 
 ## ❓ Future Updates & Power-Ups?
-🔹 🔊 Game Sounds!🎶
-🔹 🍌 Golden Banana Bonus—double points?
-🔹 🎨 Particle Effects—juice splashes when catching fruit?
-🔹 🏆 Online Leaderboard—compete for the highest score?
+- 🔊 Game Sounds!🎶
+- 🍌 Golden Banana Bonus—double points?
+- 🎨 Particle Effects—juice splashes when catching fruit?
 
-## 
+## 📝 License
+This project is licensed under **Creative Commons BY-NC-ND 4.0**.  
+🔒 **This means:**  
+- 🚫 You **CANNOT** modify, redistribute, or use this code for commercial purposes.  
+- 👀 You **CAN** stare at it in admiration and appreciate my legendary coding journey.  
+- 🏆 This project exists **strictly for portfolio showcasing**.  
+
+For full details, check the [LICENSE](LICENSE) file.
