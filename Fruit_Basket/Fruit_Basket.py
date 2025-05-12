@@ -84,6 +84,10 @@ def main():
     # Points
     points = 0
 
+    # Basket speed
+    basket_vel = BASKET_VEL
+
+    # Fruit spawning
     fruit_add_increment = 1000
     fruit_count = 0
     
@@ -92,6 +96,9 @@ def main():
     while run:
         fruit_count += clock.tick(60)  # Set the frame rate to 60 FPS
         elapsed_time = time.time() - start_time
+
+        # Update the basket speed every 10 seconds
+        basket_vel = min(12, BASKET_VEL + int(elapsed_time // 10))  
 
         # Spawn fruits
         if fruit_count >= fruit_add_increment:
@@ -103,7 +110,7 @@ def main():
                 }
             fruits.append(fruit)
 
-            fruit_add_increment = max(500, fruit_add_increment - 50)
+            fruit_add_increment = max(600, fruit_add_increment - 75)
             fruit_count = 0
 
         for event in pygame.event.get():
@@ -113,13 +120,13 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and basket_rect.x - BASKET_VEL >= 0:
-            basket_rect.x -= BASKET_VEL
+            basket_rect.x -= basket_vel
             if flipped:
                 loading_basket_img = basket_img
                 flipped = False
 
         if keys[pygame.K_RIGHT] and basket_rect.x + BASKET_VEL + basket_rect.width <= WIDTH:
-            basket_rect.x += BASKET_VEL
+            basket_rect.x += basket_vel
             if not flipped:
                 loading_basket_img = basket_flipped
                 flipped = True
