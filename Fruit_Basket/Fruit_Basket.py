@@ -22,7 +22,7 @@ pygame.display.set_icon(icon)
 
 # Basket properties
 BASKET_WIDTH, BASKET_HEIGHT = 120, 120
-BASKET_VEL = 8
+BASKET_VEL = 9
 
 # Fruit properties
 FRUIT_WIDTH, FRUIT_HEIGHT = 32, 32
@@ -119,7 +119,7 @@ def main():
     fruit_vel = FRUIT_VEL
 
     # Fruit spawning
-    fruit_add_increment = 1000
+    fruit_add_increment = 1500
     fruit_count = 0
     
     fruits = []
@@ -144,7 +144,7 @@ def main():
                 }
             fruits.append(fruit)
 
-            fruit_add_increment = max(600, fruit_add_increment - 75)
+            fruit_add_increment = max(600, fruit_add_increment - 50)
             fruit_count = 0
 
         for event in pygame.event.get():
