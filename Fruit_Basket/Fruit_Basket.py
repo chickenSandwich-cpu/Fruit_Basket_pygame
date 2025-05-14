@@ -1,3 +1,4 @@
+from math import e
 import pygame
 import random
 import time
@@ -9,8 +10,6 @@ pygame.init()
 
 # Initialize the mixer for sound
 mixer.init()
-mixer.music.load("sounds/collect_fruit.mp3")
-
 
 # Set up the display
 WIDTH, HEIGHT = 800, 640
@@ -45,10 +44,34 @@ fruit_images = [
     pygame.image.load("assets/green_apple.png")
     ]
 
+# Sound effects
+collect_sound = mixer.Sound("sounds/collect_fruit.mp3")
 
-# if BG:
-    # print("Background loaded successfully") # Debug message
+songs = [
+    "sounds/background_music_1.mp3",
+    "sounds/background_music_2.mp3",
+    "sounds/background_music_3.mp3"
+    ]
+random.shuffle(songs)
 
+def play_songs():
+    global songs
+    if songs:
+        mixer.music.load(songs.pop(0))
+        mixer.music.set_volume(0.2)
+        mixer.music.play()
+        mixer.music.set_endevent(pygame.USEREVENT)
+    else: 
+        songs = [
+            "sounds/background_music_1.mp3",
+            "sounds/background_music_2.mp3",
+            "sounds/background_music_3.mp3"
+            ]
+        random.shuffle(songs)
+        play_songs()
+
+mixer.music.set_endevent(pygame.USEREVENT)
+play_songs()
 
 def draw(basket_img, basket_rect, elapsed_time, points, fruits):
     # Draw the background image
@@ -72,7 +95,6 @@ def draw(basket_img, basket_rect, elapsed_time, points, fruits):
     # Update the display
     pygame.display.update()
 
-
 # Game loop
 def main():
     run = True
@@ -93,6 +115,9 @@ def main():
     # Basket speed
     basket_vel = BASKET_VEL
 
+    # Fruit speed
+    fruit_vel = FRUIT_VEL
+
     # Fruit spawning
     fruit_add_increment = 1000
     fruit_count = 0
@@ -103,8 +128,11 @@ def main():
         fruit_count += clock.tick(60)  # Set the frame rate to 60 FPS
         elapsed_time = time.time() - start_time
 
-        # Update the basket speed every 10 seconds
-        basket_vel = min(12, BASKET_VEL + int(elapsed_time // 10))  
+        # Update the basket speed every 15 seconds
+        basket_vel = min(12, BASKET_VEL + int(elapsed_time // 15))
+
+        # Update the fruit speed every 30 seconds
+        fruit_vel = min(10, FRUIT_VEL + int(elapsed_time // 30))
 
         # Spawn fruits
         if fruit_count >= fruit_add_increment:
@@ -120,7 +148,9 @@ def main():
             fruit_count = 0
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.USEREVENT:
+                play_songs()
+            elif event.type == pygame.QUIT:
                 run = False
                 break
 
@@ -138,14 +168,13 @@ def main():
                 flipped = True
 
         for fruit in fruits[:]:
-            fruit["rect"].y += FRUIT_VEL  # Move downward
+            fruit["rect"].y += fruit_vel  # Move downward
 
             if fruit["rect"].y > HEIGHT:
                 fruits.remove(fruit)  # Remove fruit if it goes off screen
             elif fruit["rect"].colliderect(basket_rect):
-                random_volume = random.uniform(0.2, 0.8)  # Random volume
-                mixer.music.set_volume(random_volume)  # Set volume
-                mixer.music.play()  # Play sound when fruit is collected
+                collect_sound.set_volume(random.uniform(0.2, 0.5))
+                collect_sound.play()
                 points += 1
                 fruits.remove(fruit)
 
