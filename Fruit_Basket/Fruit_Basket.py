@@ -1,10 +1,15 @@
 import pygame
 import random
 import time
+from pygame import mixer
 pygame.font.init()
 
 # Initialize Pygame
 pygame.init()
+
+# Initialize the mixer for sound
+mixer.init()
+mixer.music.load("sounds/collect_fruit.mp3")
 
 # Set up the display
 WIDTH, HEIGHT = 800, 640
