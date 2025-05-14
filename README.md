@@ -18,7 +18,7 @@ Welcome to Fruit Basket, where your speed, precision, and reflexes will be put t
 - Chicken Sandwich-Fueled Thinking🥪🔥 (no sponsorship, just pure passion😆)
 
 ## ❓ Future Updates & Power-Ups?
-- 🔊 Game Sounds!🎶
+- 🔊 Game Sounds!🎶 (updated)
 - 🍌 Golden Banana Bonus—double points?
 - 🎨 Particle Effects—juice splashes when catching fruit?
 
