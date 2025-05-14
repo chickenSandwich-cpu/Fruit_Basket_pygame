@@ -11,6 +11,7 @@ pygame.init()
 mixer.init()
 mixer.music.load("sounds/collect_fruit.mp3")
 
+
 # Set up the display
 WIDTH, HEIGHT = 800, 640
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -142,6 +143,9 @@ def main():
             if fruit["rect"].y > HEIGHT:
                 fruits.remove(fruit)  # Remove fruit if it goes off screen
             elif fruit["rect"].colliderect(basket_rect):
+                random_volume = random.uniform(0.2, 0.8)  # Random volume
+                mixer.music.set_volume(random_volume)  # Set volume
+                mixer.music.play()  # Play sound when fruit is collected
                 points += 1
                 fruits.remove(fruit)
 
