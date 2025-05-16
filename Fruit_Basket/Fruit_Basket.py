@@ -78,17 +78,21 @@ def play_songs():
 mixer.music.set_endevent(pygame.USEREVENT)
 play_songs()
 
-def draw(basket_img, basket_rect, elapsed_time, points, fruits):
+def draw(basket_img, basket_rect, elapsed_time, points, lives, fruits):
     # Draw the background image
     WIN.blit(BG, (0, 0))
 
     # Draw the timer
-    time_text = FONT.render(f"Time: {round(elapsed_time, 1)}s", 1, "white")
+    time_text = FONT.render(f"Time: {round(elapsed_time, 1)}s", 1, (255, 255, 255))
     WIN.blit(time_text, (10, 10))
 
     # Draw the points
-    points_text = FONT.render(f"Points: {points}", 1, "white")
+    points_text = FONT.render(f"Points: {points}", 1, (255, 255, 255))
     WIN.blit(points_text, (WIDTH - points_text.get_width() - 10, 10))
+
+    # Draw the lives
+    lives_text = FONT.render(f"Lives: {lives}", 1, (255, 255, 255))
+    WIN.blit(lives_text, (WIDTH - lives_text.get_width() - 10, 40))
 
     # Draw the fruits
     for fruit in fruits:
@@ -124,6 +128,25 @@ def start_screen(window):
 
     mixer.music.stop()  # Stop the waiting music
 
+def game_over_screen():
+    font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
+    game_over_text = font.render("Game Over! Press SPACE to Restart", 1, (255, 255, 255))
+
+    running = True
+    while running:
+        WIN.blit(BG, (0, 0))
+        WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                running = False  # Player presses SPACE to restart
+
+    main()  # Restart game without stopping music
+
 # Game loop
 def main():
     start_screen(WIN)  # Call before main game loop
@@ -141,6 +164,9 @@ def main():
 
     # Points
     points = 0
+
+    # Lives
+    lives = 10
 
     # Basket speed
     basket_vel = BASKET_VEL
@@ -202,14 +228,19 @@ def main():
 
             if fruit["rect"].y > HEIGHT:
                 fruits.remove(fruit)  # Remove fruit if it goes off screen
+                lives -= 1
             elif fruit["rect"].colliderect(basket_rect):
                 random.choice(collect_sound).set_volume(random.uniform(0.2, 0.5))
                 random.choice(collect_sound).play()
                 points += 1
                 fruits.remove(fruit)
 
+        if lives <= 0:
+            game_over_screen()
+            break
 
-        draw(loading_basket_img, basket_rect, elapsed_time, points, fruits)
+
+        draw(loading_basket_img, basket_rect, elapsed_time, points, lives, fruits)
 
     pygame.quit()
 
