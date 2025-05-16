@@ -203,8 +203,8 @@ def main():
             if fruit["rect"].y > HEIGHT:
                 fruits.remove(fruit)  # Remove fruit if it goes off screen
             elif fruit["rect"].colliderect(basket_rect):
-                collect_sound.set_volume(random.uniform(0.2, 0.5))
-                collect_sound.play()
+                random.choice(collect_sound).set_volume(random.uniform(0.2, 0.5))
+                random.choice(collect_sound).play()
                 points += 1
                 fruits.remove(fruit)
 
