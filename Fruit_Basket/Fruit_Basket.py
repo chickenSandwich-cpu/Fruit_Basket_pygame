@@ -1,5 +1,3 @@
-from math import e
-from pickle import NONE
 import pygame
 import random
 import time
