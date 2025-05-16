@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import math
 from pygame import mixer
 pygame.font.init()
 
@@ -105,7 +106,7 @@ def draw(basket_img, basket_rect, elapsed_time, points, lives, fruits):
 # Start screen
 def start_screen(window):
     font = pygame.font.Font("fonts/PressStart2P.ttf", 18)
-    start_text = font.render("Fruit Basket - Press SPACE to Start", 1, (255, 255, 255))
+    time_passed = 0
 
     mixer.music.load("sounds/waiting.mp3")
     mixer.music.set_volume(0.2)
@@ -113,8 +114,12 @@ def start_screen(window):
 
     running = True
     while running:
+        time_passed += 0.025
+        wave_offset = math.sin(time_passed) * 5  # Create a wave effect
+
         WIN.blit(BG, (0, 0))
-        window.blit(start_text, (WIDTH/2 - start_text.get_width()/2, HEIGHT/2 - start_text.get_height()/2 + 200))  # Position text on screen
+        start_text = font.render("Fruit Basket - Press SPACE to Start", 1, (255, 255, 255))
+        window.blit(start_text, (WIDTH/2 - start_text.get_width()/2, HEIGHT/2 - start_text.get_height()/2 + 200 + wave_offset))  # Position text on screen
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -128,12 +133,16 @@ def start_screen(window):
 
 def game_over_screen():
     font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
-    game_over_text = font.render("Game Over! Press SPACE to Restart", 1, (255, 255, 255))
+    time_passed = 0
 
     running = True
     while running:
+        time_passed += 0.025
+        wave_offset = math.sin(time_passed) * 5  # Create a wave effect
+
         WIN.blit(BG, (0, 0))
-        WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
+        game_over_text = font.render("Game Over! Press SPACE to Restart", 1, (255, 255, 255))
+        WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2 + wave_offset))
         pygame.display.flip()
 
         for event in pygame.event.get():
