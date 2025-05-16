@@ -1,6 +1,6 @@
 # 🥪🍏 Fruit Basket - The Ultimate Fruit-Catching Showdown!🎮🔥
 
-## 🤔 About This Project  
+## 🤔 About This Project - A game project that got inspired by my girlfriend and I's ideas
 Welcome to Fruit Basket, where your speed, precision, and reflexes will be put to the test! Catch those falling fruits, rack up points, and don’t let them slip away!😱🍎🍌
 
 ## 🚀 How to Play
@@ -15,10 +15,9 @@ Welcome to Fruit Basket, where your speed, precision, and reflexes will be put t
 - Pygame🎮
 - Randomized Fruit Mechanics🍅🥕🍏
 - Juicy Pixel Art Sprites🎨
-- Chicken Sandwich-Fueled Thinking🥪🔥 (no sponsorship, just pure passion😆)
 
 ## ❓ Future Updates & Power-Ups?
-- 🔊 Game Sounds!🎶 (updated)
+- 🔊 Game Sounds!🎶 (updated!!)
 - 🍌 Golden Banana Bonus—double points?
 - 🎨 Particle Effects—juice splashes when catching fruit?
 
