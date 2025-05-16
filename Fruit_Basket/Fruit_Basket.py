@@ -1,4 +1,5 @@
 from math import e
+from pickle import NONE
 import pygame
 import random
 import time
@@ -45,7 +46,11 @@ fruit_images = [
     ]
 
 # Sound effects
-collect_sound = mixer.Sound("sounds/collect_fruit.mp3")
+collect_sound = [
+    mixer.Sound("sounds/collect_fruit_1.mp3"),
+    mixer.Sound("sounds/collect_fruit_2.mp3"),
+    mixer.Sound("sounds/collect_fruit_3.mp3"),
+    ]
 
 songs = [
     "sounds/background_music_1.mp3",
@@ -95,8 +100,33 @@ def draw(basket_img, basket_rect, elapsed_time, points, fruits):
     # Update the display
     pygame.display.update()
 
+# Start screen
+def start_screen(window):
+    font = pygame.font.Font("fonts/PressStart2P.ttf", 18)
+    start_text = font.render("Fruit Basket - Press SPACE to Start", 1, (255, 255, 255))
+
+    mixer.music.load("sounds/waiting.mp3")
+    mixer.music.set_volume(0.2)
+    mixer.music.play(-1)  # Loop the waiting music
+
+    running = True
+    while running:
+        WIN.blit(BG, (0, 0))
+        window.blit(start_text, (WIDTH/2 - start_text.get_width()/2, HEIGHT/2 - start_text.get_height()/2 + 200))  # Position text on screen
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                running = False  # Exit start screen loop
+
+    mixer.music.stop()  # Stop the waiting music
+
 # Game loop
 def main():
+    start_screen(WIN)  # Call before main game loop
     run = True
     flipped = False
 
