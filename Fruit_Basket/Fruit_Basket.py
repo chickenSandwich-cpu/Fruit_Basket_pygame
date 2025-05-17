@@ -43,6 +43,7 @@ fruit_images = [
     pygame.image.load("assets/carrot.png"),
     pygame.image.load("assets/green_apple.png")
     ]
+banana_img = pygame.image.load("assets/banana.png")
 
 # Sound effects
 collect_sound = [
@@ -177,7 +178,7 @@ def main():
         # Spawn fruits
         if fruit_count >= fruit_add_increment:
             fruit_x = random.randint(0, WIDTH - FRUIT_WIDTH)
-            fruit_type = random.choice(fruit_images)
+            fruit_type = banana_img if random.random() < 0.1 else random.choice(fruit_images)  # 10% chance for banana
             fruit = {
                 "rect": pygame.Rect(fruit_x, -FRUIT_HEIGHT, FRUIT_WIDTH, FRUIT_HEIGHT),
                 "image": fruit_type
@@ -216,7 +217,12 @@ def main():
             elif fruit["rect"].colliderect(basket_rect):
                 random.choice(collect_sound).set_volume(random.uniform(0.2, 0.5))
                 random.choice(collect_sound).play()
-                points += 1
+                if fruit["image"] == banana_img:
+                    lives += 1
+                    points += 2
+                else:
+                    points += 1
+
                 fruits.remove(fruit)
 
         if lives <= 0:
