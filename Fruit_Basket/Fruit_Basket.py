@@ -247,7 +247,8 @@ def main():
                         exit()
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                         game_over_mode = False
-                        main()  # Restart the game
+                        main()
+                        break
 
         draw(loading_basket_img, basket_rect, elapsed_time, points, lives, fruits)
 
