@@ -43,7 +43,7 @@ fruit_images = [
     pygame.image.load("assets/carrot.png"),
     pygame.image.load("assets/green_apple.png")
     ]
-banana_img = pygame.image.load("assets/banana.png")
+banana_img = pygame.image.load("assets/banana.png") # Special fruit
 
 # Sound effects
 collect_sound = [
