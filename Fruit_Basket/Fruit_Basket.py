@@ -230,8 +230,10 @@ def main():
                 draw(loading_basket_img, basket_rect, elapsed_time, points, lives, fruits)
 
                 game_over_text = FONT.render("Game Over - Press SPACE to Restart", 1, (255, 255, 255))
-                WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2 + wave_offset))  # Position text on screen
-                pygame.display.flip()
+                game_over_text_rect = game_over_text.get_rect(center=(WIDTH//2, HEIGHT//2 + wave_offset))
+                WIN.blit(game_over_text, game_over_text_rect)
+
+                pygame.display.update()
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
