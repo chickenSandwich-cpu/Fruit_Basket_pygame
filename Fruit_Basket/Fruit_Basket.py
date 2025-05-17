@@ -131,29 +131,6 @@ def start_screen(window):
 
     mixer.music.stop()  # Stop the waiting music
 
-def game_over_screen():
-    font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
-    time_passed = 0
-
-    running = True
-    while running:
-        time_passed += 0.025
-        wave_offset = math.sin(time_passed) * 5  # Create a wave effect
-
-        WIN.blit(BG, (0, 0))
-        game_over_text = font.render("Game Over! Press SPACE to Restart", 1, (255, 255, 255))
-        WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2 + wave_offset))
-        pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                running = False  # Player presses SPACE to restart
-
-    main()  # Restart game without stopping music
-
 # Game loop
 def main():
     start_screen(WIN)  # Call before main game loop
@@ -243,9 +220,26 @@ def main():
                 fruits.remove(fruit)
 
         if lives <= 0:
-            game_over_screen()
-            break
+            time_passed = 0
 
+            game_over_mode = True
+            while game_over_mode:
+                time_passed += 0.025
+                wave_offset = math.sin(time_passed) * 5
+
+                draw(loading_basket_img, basket_rect, elapsed_time, points, lives, fruits)
+
+                game_over_text = FONT.render("Game Over - Press SPACE to Restart", 1, (255, 255, 255))
+                WIN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2 + wave_offset))  # Position text on screen
+                pygame.display.flip()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                        game_over_mode = False
+                        main()  # Restart the game
 
         draw(loading_basket_img, basket_rect, elapsed_time, points, lives, fruits)
 
