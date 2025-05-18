@@ -19,7 +19,7 @@ Welcome to Fruit Basket, where your speed, precision, and reflexes will be put t
 ## ❓ Future Updates & Power-Ups?
 - 🔊 Game Sounds!🎶 (updated!!)
 - 🍌 Golden Banana Bonus—double points? (updated!!!)
-- 🎨 Particle Effects—juice splashes when catching fruit? (or...? no spoiler haha)
+- 🎨 Particle Effects—juice splashes when catching fruit? (or...? no spoiler haha) ((kinda) updated!!!!)
 
 ## 📝 License
 This project is licensed under **Creative Commons BY-NC-ND 4.0**.  
