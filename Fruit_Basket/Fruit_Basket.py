@@ -30,10 +30,13 @@ FRUIT_VEL = 5
 
 # Hippo properties
 HIPPO_WIDTH, HIPPO_HEIGHT = 64, 64
-HIPPO_VEL = 2
+HIPPO_VEL = 10
 HIPPO_X, HIPPO_Y = 10, -2
 HIPPO_DIRECTION = 1  # 1 for right, -1 for left
+HIPPO_LEFT_BOUND = 10
+HIPPO_RIGHT_BOUND = 120
 HIPPO_MOVE_SECONDS = 1000  # Move every 1000 milliseconds (1 second)
+hippo_last_moved = pygame.time.get_ticks()  # Initialize the last moved time
 
 # Set up font
 FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
@@ -90,11 +93,16 @@ mixer.music.set_endevent(pygame.USEREVENT)
 play_songs()
 
 def update_hippo():
-    global HIPPO_X, HIPPO_DIRECTION
-    HIPPO_X += HIPPO_VEL * HIPPO_DIRECTION
+    global HIPPO_X, HIPPO_DIRECTION, hippo_last_moved
+    current_time = pygame.time.get_ticks()
 
-    if HIPPO_X <= 0 or HIPPO_X + HIPPO_WIDTH >= HIPPO_WIDTH + 150:
-        HIPPO_DIRECTION *= -1
+    if current_time - hippo_last_moved > HIPPO_MOVE_SECONDS:
+        HIPPO_X += HIPPO_VEL * HIPPO_DIRECTION
+        
+        if HIPPO_X <= HIPPO_LEFT_BOUND or HIPPO_X + HIPPO_WIDTH >= HIPPO_RIGHT_BOUND:
+            HIPPO_DIRECTION *= -1
+
+        hippo_last_moved = current_time
 
 def draw(basket_img, basket_rect, elapsed_time, points, lives, fruits):
     # Draw the background image
@@ -191,10 +199,6 @@ def main():
         fruit_count += clock.tick(60)  # Set the frame rate to 60 FPS
         elapsed_time = time.time() - start_time
         update_hippo()
-
-        text_surface = FONT.render("Time: 999s", True, (255, 255, 255))
-        text_width, text_height = text_surface.get_size()
-        print("Width:", text_width, "Height:", text_height)
 
         # Update the basket speed every 15 seconds
         basket_vel = min(12, BASKET_VEL + int(elapsed_time // 15))
