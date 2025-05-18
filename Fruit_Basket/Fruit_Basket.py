@@ -59,6 +59,9 @@ fruit_images = [
     ]
 banana_img = pygame.image.load("assets/banana.png") # Special fruit
 
+# Worm image
+worm_img = pygame.image.load("assets/worm.png")
+
 # Sound effects
 collect_sound = [
     mixer.Sound("sounds/collect_fruit_1.mp3"),
@@ -209,7 +212,7 @@ def main():
         # Spawn fruits
         if fruit_count >= fruit_add_increment:
             fruit_x = random.randint(0, WIDTH - FRUIT_WIDTH)
-            fruit_type = banana_img if random.random() < 0.1 else random.choice(fruit_images)  # 10% chance for banana
+            fruit_type = worm_img if random.random() < 0.1 else (banana_img if random.random() < 0.1 else random.choice(fruit_images)) # 10% chance for worm, 10% chance for banana, otherwise random fruit
             fruit = {
                 "rect": pygame.Rect(fruit_x, -FRUIT_HEIGHT, FRUIT_WIDTH, FRUIT_HEIGHT),
                 "image": fruit_type
@@ -251,6 +254,8 @@ def main():
                 if fruit["image"] == banana_img:
                     lives += 1
                     points += 2
+                elif fruit["image"] == worm_img:
+                    points -= 2
                 else:
                     points += 1
 
