@@ -28,6 +28,13 @@ BASKET_VEL = 9
 FRUIT_WIDTH, FRUIT_HEIGHT = 32, 32
 FRUIT_VEL = 5
 
+# Hippo properties
+HIPPO_WIDTH, HIPPO_HEIGHT = 64, 64
+HIPPO_VEL = 2
+HIPPO_X, HIPPO_Y = 10, -2
+HIPPO_DIRECTION = 1  # 1 for right, -1 for left
+HIPPO_MOVE_SECONDS = 1000  # Move every 1000 milliseconds (1 second)
+
 # Set up font
 FONT = pygame.font.Font("fonts/PressStart2P.ttf", 20)
 
@@ -36,6 +43,10 @@ BG = pygame.image.load("assets/background.png")
 basket_img = pygame.image.load("assets/basket.png")
 basket_img = pygame.transform.scale(basket_img, (BASKET_WIDTH, BASKET_HEIGHT))
 basket_flipped = pygame.transform.flip(basket_img, True, False)
+
+hippo_img = pygame.image.load("assets/hippo.png")
+hippo_img = pygame.transform.scale(hippo_img, (HIPPO_WIDTH, HIPPO_HEIGHT))
+hippo_flipped = pygame.transform.flip(hippo_img, True, False)
 
 # Load fruit images
 fruit_images = [
@@ -78,13 +89,24 @@ def play_songs():
 mixer.music.set_endevent(pygame.USEREVENT)
 play_songs()
 
+def update_hippo():
+    global HIPPO_X, HIPPO_DIRECTION
+    HIPPO_X += HIPPO_VEL * HIPPO_DIRECTION
+
+    if HIPPO_X <= 0 or HIPPO_X + HIPPO_WIDTH >= HIPPO_WIDTH + 150:
+        HIPPO_DIRECTION *= -1
+
 def draw(basket_img, basket_rect, elapsed_time, points, lives, fruits):
     # Draw the background image
     WIN.blit(BG, (0, 0))
 
+    # Draw the hippo
+    hippo_rect = pygame.Rect(HIPPO_X, HIPPO_Y, HIPPO_WIDTH, HIPPO_HEIGHT)
+    WIN.blit(hippo_img if HIPPO_DIRECTION == 1 else hippo_flipped, hippo_rect)
+
     # Draw the timer
     time_text = FONT.render(f"Time: {round(elapsed_time, 1)}s", 1, (255, 255, 255))
-    WIN.blit(time_text, (10, 10))
+    WIN.blit(time_text, (10, 40))
 
     # Draw the points
     points_text = FONT.render(f"Points: {points}", 1, (255, 255, 255))
@@ -168,6 +190,11 @@ def main():
     while run:
         fruit_count += clock.tick(60)  # Set the frame rate to 60 FPS
         elapsed_time = time.time() - start_time
+        update_hippo()
+
+        text_surface = FONT.render("Time: 999s", True, (255, 255, 255))
+        text_width, text_height = text_surface.get_size()
+        print("Width:", text_width, "Height:", text_height)
 
         # Update the basket speed every 15 seconds
         basket_vel = min(12, BASKET_VEL + int(elapsed_time // 15))
